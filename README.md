@@ -1,30 +1,40 @@
 # Network Traffic Analysis Dashboard
 
-A comprehensive Next.js application for visualizing and analyzing network traffic data to identify attack patterns, similar to tools like Maltego and Kibana.
+A comprehensive Next.js application for visualizing and analyzing network traffic data to identify attack patterns, inspired by the Elastic Stack approach.
 
 ![Network Analysis Dashboard](/placeholder.svg?height=400&width=800&query=network%20traffic%20analysis%20dashboard%20with%20graphs%20and%20charts)
 
 ## Overview
 
-This application provides a powerful dashboard for security analysts to visualize and analyze network traffic data from different sources. It supports both labeled Ground Truth data and raw PCAP traffic data, allowing for comprehensive network security monitoring and attack pattern detection.
+This application provides a powerful dashboard for security analysts to visualize and analyze network traffic data from different sources. It follows the Elastic Stack approach with a clear data pipeline (Ingest, Store, Analyze) and provides comprehensive security monitoring and attack pattern detection capabilities.
 
 ## Features
 
-### Data Analysis
+### Data Pipeline
+- **Ingest**: Upload CSV/PCAP files, connect to APIs, or capture live network traffic
+- **Store**: Index and store processed data for efficient retrieval
+- **Analyze**: Visualize and analyze network patterns through interactive dashboards
+
+### Security Analysis
 - Support for multiple data formats (Ground Truth and PCAP)
+- Custom file upload for analyzing your own network data
 - Automatic detection of attack patterns and suspicious activities
 - Identification of time windows with multiple attack types
 - Protocol analysis and categorization
 - Network traffic visualization
 
-### Visualizations
-- **Network Graph**: Interactive visualization of network connections and attack patterns
-- **Timeline Chart**: Chronological view of events and attack patterns
-- **Attack Distribution**: Statistical breakdown of attack types or protocols
-- **Attack Windows**: Identification of time periods with multiple attack types
+### Dashboard Templates
+- **Security Overview**: Summary of security environment activity
+- **Network Graph**: Interactive visualization of network connections
+- **Attack Timeline**: Chronological view of events
+- **Attack Distribution**: Statistical breakdown of attack types
+- **Detection & Response**: Information about alerts and cases
+- **Geo Analysis**: Geographic visualization of attack sources
 
 ### Interactive Components
-- File selector to switch between data sources
+- Sidebar navigation for easy access to all features
+- Dashboard gallery with search functionality
+- File upload with drag-and-drop support
 - Detailed event tables with filtering and pagination
 - Expandable attack window details
 - Interactive charts and graphs
@@ -61,50 +71,40 @@ yarn dev
 
 ## Usage Guide
 
-### Switching Between Data Sources
+### Navigation
 
-Use the file selector in the header to switch between:
-- **Ground Truth Data**: Pre-labeled network events with attack classifications
-- **PCAP Data**: Raw network packet capture data
+The application features a sidebar navigation that organizes features into logical sections:
+- **Overview**: Dashboard home and main views
+- **Data Pipeline**: Ingest, Store, and Analyze sections
+- **Security**: Security-focused views and analysis
+- **Settings**: Application configuration
 
-![Data Source Selector](/placeholder.svg?height=100&width=300&query=data%20source%20selector%20buttons)
+### Dashboard Gallery
 
-### Dashboard Overview
+The home page displays a gallery of available dashboards:
+- **Security Views**: Pre-built security dashboards
+- **Custom Dashboards**: User-created dashboards
+- Search functionality to quickly find dashboards
 
-The main dashboard provides key metrics:
-- Total events
-- Number of attack types or protocols
-- Attack windows (1-minute periods with 3+ attack types)
-- Unique IP addresses
+### Data Ingestion
 
-### Exploring Attack Patterns
+The Ingest page provides multiple ways to bring data into the system:
+- **File Upload**: Upload CSV or PCAP files with drag-and-drop support
+- **API Integration**: Connect to external data sources via API
+- **Live Capture**: Capture and analyze network traffic in real-time
 
-1. **Overview Tab**: View distribution of attack types or protocols
-2. **Attack Windows Tab**: Examine time periods with multiple attack types
-3. **Network Graph Tab**: Visualize network connections and attack patterns
-4. **Timeline Tab**: See chronological distribution of events
-5. **Events Tab**: Browse detailed event information
+### Security Analysis
 
-### Network Graph
+The Security Overview dashboard provides:
+- Key metrics about your network traffic
+- Attack distribution visualization
+- Timeline of security events
+- Network graph showing connections and attack patterns
+- Detailed event tables
 
-The network graph visualizes connections between IP addresses:
-- Internal IPs (172.28.x.x) are shown in blue
-- External IPs are shown in red
-- Connections are color-coded by attack type or protocol
-- Line thickness indicates connection frequency
+### Supported Data Formats
 
-![Network Graph](/placeholder.svg?height=300&width=600&query=network%20graph%20visualization%20with%20nodes%20and%20edges)
-
-### Attack Windows Analysis
-
-The Attack Windows tab identifies 1-minute periods containing at least 3 different attack types or protocols:
-1. Click on a row to expand details
-2. View breakdown of attack types within each window
-3. Use this to identify coordinated attack patterns
-
-## Supported Data Formats
-
-### Ground Truth Format
+#### Ground Truth Format
 Tab-separated values with the following columns:
 - Event Type
 - C2S ID
@@ -115,7 +115,7 @@ Tab-separated values with the following columns:
 - Start Time
 - Stop Time
 
-### PCAP Format
+#### PCAP Format
 Comma or tab-separated values with columns including:
 - Time
 - Source
@@ -159,8 +159,8 @@ This application is built with:
 - Real-time data ingestion
 - Alert system for suspicious activity
 - Export functionality for reports
-- Direct CSV upload interface
 - Data caching for improved performance
+- Custom dashboard creation
 
 ## License
 
@@ -169,4 +169,4 @@ This application is built with:
 ## Acknowledgements
 
 - Sample network traffic data provided for educational purposes
-- Inspired by professional security tools like Maltego and Kibana
+- Inspired by the Elastic Stack approach to data analysis

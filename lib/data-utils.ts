@@ -1,32 +1,37 @@
 import type { NetworkEvent, PcapEvent, AttackWindow } from "@/lib/types"
 
-// Fetch the CSV file from the provided URL
-export async function fetchAndParseCSV(url?: string) {
+// Fetch the CSV file from the provided URL or parse the provided CSV text
+export async function fetchAndParseCSV(url?: string, csvText?: string, forcedFileType?: string) {
   try {
-    const csvUrl =
-      url ||
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GroundTruth%20%281%29-EbVXgH0tplYpLx33wnDtZP98AGayKL.csv"
+    let text = csvText
 
-    const response = await fetch(csvUrl, {
-      method: "GET",
-      headers: {
-        "Cache-Control": "no-cache",
-      },
-    })
+    // If no text is provided but URL is, fetch from URL
+    if (!text && url) {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      })
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`)
+      }
+
+      text = await response.text()
     }
-
-    const text = await response.text()
 
     if (!text || typeof text !== "string" || text.trim() === "") {
       throw new Error("Received empty or invalid CSV data")
     }
 
     // Determine file type and parse accordingly
-    const isPcapFile =
-      text.includes("Time") && text.includes("Source") && text.includes("Destination") && !text.includes("Event Type")
+    let isPcapFile = forcedFileType === "pcap"
+
+    if (!forcedFileType) {
+      isPcapFile =
+        text.includes("Time") && text.includes("Source") && text.includes("Destination") && !text.includes("Event Type")
+    }
 
     if (isPcapFile) {
       return parsePcapData(text)
